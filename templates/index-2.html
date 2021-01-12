@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+
+    <style>
+        .score {
+            float: right;
+            margin-bottom: 30px;
+            margin-right: 600px;
+        }
+
+        .sun {
+            background: #3A7734;
+            text-align: left;
+        }
+
+        /*.spine {*/
+        /*    margin: 30px auto 100px 200px;*/
+        /*    width: 600px;*/
+        /*}*/
+
+        /*.calendar{*/
+        /*    margin:10px  30px auto 500px;*/
+        /*}*/
+
+        .question {
+            margin: 30px auto 100px 30px;
+        }
+
+        .left {
+            float: left;
+            width: 800px;
+            alignment: left;
+            margin-left: 50px;
+        }
+
+        .right {
+            float: right;
+            width: 800px;
+            alignment: right;
+            margin-right: 50px;
+        }
+
+        .end {
+
+            margin: 1200px auto 100px 0px;
+            text-align: center;
+        }
+
+
+    </style>
+
+    <style>
+        * {
+            font-size: 16px;
+            font-family: Consolas, sans-serif;
+        }
+    </style>
+
+
+    <title> 선정형외과 척추 기능 평가 측정</title>
+</head>
+
+
+<body>
+
+
+<div class="spine">
+    <h1 class="sun"> 선정형외과 척추 기능평가 측정</h1>
+
+    Chart number : <input type="text" name="my_name" size="20">
+    이름: <input type="text" name="my_name" size="20">
+    성별: <input type="text" name="my_name" size="20">
+    나이: <input type="text" name="my_name" size="20">
+    날짜 : <input type="text" name="my_name" size="20">
+    술전, 술후 체크 : <input type="text" name="my_name" size="20">
+
+
+
+
+    <form name="prodSearch" action="/products/index.cfm" method="post">
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text"> 성별</span>
+            </div>
+            <input type="text" class="form-control" aria-label="Sizing example input"
+                   aria-describedby="inputGroup-sizing-default" id="sex">
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text"> 나이 </span>
+            </div>
+            <input type="text" class="form-control" aria-label="Sizing example input"
+                   aria-describedby="inputGroup-sizing-default" id="age">
+        </div>
+
+
+    </form>
+
+
+    <span class="input-group-text">환자 챠트 No.</span>
+    <input type="text" class="form-control" aria-label="Sizing example input"
+           aria-describedby="inputGroup-sizing-default" id="chat_no">
+    <span class="input-group-text">환자 성함  </span>
+    <input type="text" class="form-control" aria-label="Sizing example input"
+           aria-describedby="inputGroup-sizing-default" id="name">
+
+
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text"> 성별</span>
+        </div>
+        <input type="text" class="form-control" aria-label="Sizing example input"
+               aria-describedby="inputGroup-sizing-default" id="sex">
+    </div>
+
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text"> 나이 </span>
+        </div>
+        <input type="text" class="form-control" aria-label="Sizing example input"
+               aria-describedby="inputGroup-sizing-default" id="age">
+    </div>
+    <button onclick="makeReview()" type="button" class="btn btn-primary mybtn">주문하기</button>
+    <div class="calendar">
+        <form>
+            <p><input type="date">
+                <input type="submit" value="Submit"></p>
+        </form>
+    </div>
+</div>
+<div id='result1'></div>
+<div id='result2'></div>
+<div id='result3'></div>
+<div id='result4'></div>
+<div id='result5'></div>
+<div id='result6'></div>
+<div id='result7'></div>
+<div id='result8'></div>
+<div id='result9'></div>
+<div id='result10'></div>
+
+
+<div class="question">
+    <div class="left">
+        <div class="form-check">
+            <label for="exampleFormControlSelect2">제 1항 통증 정도 </label><br>
+            <input class="form-check-input" type="radio" name="Q1" id="exampleRadios1" value="0"
+                   onclick='getScore1(event)'>
+            <label class="form-check-label" for="exampleRadios1">
+                0 나는 현재 통증이 전혀 없다.
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="Q1" id="exampleRadios2" value="1"
+                   onclick='getScore1(event)'>
+            <label class="form-check-label" for="exampleRadios2">
+                1 현재 매우 가벼운 통증이 있다.
+            </label>
+        </div>
+
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="Q1" id="exampleRadios2" value="2"
+                   onclick='getScore1(event)'>
+            <label class="form-check-label" for="exampleRadios2">
+                2 현재 통증이 조금 있다.
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="Q1" id="exampleRadios2" value="3"
+                   onclick='getScore1(event)'>
+            <label class="form-check-label" for="exampleRadios2">
+                3 현재 통증이 조금 심하다.
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="Q1" id="exampleRadios2" value="4"
+                   onclick='getScore1(event)'>
+            <label class="form-check-label" for="exampleRadios2">
+                4 현재 통증이 아주 심하다.
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="Q1" id="exampleRadios2" value="5"
+                   onclick='getScore1(event)'>
+            <label class="form-check-label" for="exampleRadios2">
+                5 현재 통증이 상상 할 수 없이 심하다.
+            </label>
+        </div>
+        <br>
+
+
+        <div class="form-check">
+            <label for="exampleFormControlSelect2">제 2항 개인위생(씻기, 옷 입기등) </label><br>
+            <input class="form-check-input" type="radio" name="Q2" id="exampleRadios1" value="0"
+                   onclick='getScore2(event)'>
+            checked>
+            <label class="form-check-label" for="exampleRadios1">
+                0 나는 별다른 통증이 없이 나 자신을 챙길 수 있다.
+            </label>
+        </div>
+
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="Q2" id="exampleRadios2" value="1"
+                   onclick='getScore2(event)'>
+            <label class="form-check-label" for="exampleRadios2">
+                1 보통 나 자신을 챙길수 있으나, 통증이 있다.
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="Q2" id="exampleRadios2" value="2"
+                   onclick='getScore2(event)'>
+            <label class="form-check-label" for="exampleRadios2">
+                2 나 자신을 챙기는 데 고통스러워서, 천천히 조심 스럽게 해야 한다.
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="Q2" id="exampleRadios2" value="3"
+                   onclick='getScore2(event)'>
+            <label class="form-check-label" for="exampleRadios2">
+                3 통증 때문에 어느정도 도움이 필요하나, 혼자서 할 수는 있다
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="Q2" id="exampleRadios2" value="4"
+                   onclick='getScore2(event)'>
+            <label class="form-check-label" for="exampleRadios2">
+                4 매일 도움이 없이는 나 자신을 챙기기가 어렵다.
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="Q2" id="exampleRadios2" value="5"
+                   onclick='getScore2(event)'>
+            <label class="form-check-label" for="exampleRadios2">
+                5 옷을 입거나 씻는 게 어렵고, 보통은 누워 있다.
+            </label>
+        </div>
+        <br>
+        <div id='result2'></div>
+
+
+        <div class="form-check">
+            <label for="exampleFormControlSelect2"></label><br>
+            <input class="form-check-input" type="radio" name="Q3" id="exampleRadios1" value="0"
+                   onclick='getScore3(event)'>
+            checked>
+            <label class="form-check-label" for="exampleRadios1">
+                0 나는 무거은 물건을 통증없이 들수 있다.
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="Q3" id="exampleRadios2" value="1"
+                   onclick='getScore3(event)'>
+            <label class="form-check-label" for="exampleRadios2">
+                1 무거운 물건을 들수 있으나 , 약간 통증이 있다.
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="Q3" id="exampleRadios2" value="2"
+                   onclick='getScore3(event)'>
+            <label class="form-check-label" for="exampleRadios2">
+                2 통증 때문에 바닥에 있는 무거운 물건을 들지 못하나, 들기 쉬원 곳에 있으면 들수 있다.
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="Q3" id="exampleRadios2" value="3"
+                   onclick='getScore3(event)'>
+            <label class="form-check-label" for="exampleRadios2">
+                3 통증 때문에 무것은 물건을 들 수 없지만, 들기 쉬운 곳에 있는 무겁지 않은 물건을 들수 있다.
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="Q3" id="exampleRadios2" value="4"
+                   onclick='getScore3(event)'>
+            <label class="form-check-label" for="exampleRadios2">
+                4 아주 가벼운 물건말 들 수 있다.
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="Q3" id="exampleRadios2" value="5"
+                   onclick='getScore3(event)'>
+            <label class="form-check-label" for="exampleRadios2">
+                5 아무것도 들거나 나를 수 없다.
+            </label>
+        </div>
+        <br>
+
+
+        <div class="form-check">
+            <label for="exampleFormControlSelect2">제 4항 걷기 </label><br>
+            <input class="form-check-input" type="radio" name="Q4" id="exampleRadios1" value="0"
+                   onclick='getScore4(event)'>
+            checked>
+            <label class="form-check-label" for="exampleRadios1">
+                0 나는 걷는데 아무런 지장이 없다.
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="Q4" id="exampleRadios2" value="1"
+                   onclick='getScore4(event)'>
+            <label class="form-check-label" for="exampleRadios2">
+                1 통증 때문에 1Km 이상 걷지 못한다.
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="Q4" id="exampleRadios2" value="2"
+                   onclick='getScore4(event)'>
+            <label class="form-check-label" for="exampleRadios2">
+                2 통증 때문에 500 m 이상 걷지 못한다.
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="Q4" id="exampleRadios2" value="3"
+                   onclick='getScore4(event)'>
+            <label class="form-check-label" for="exampleRadios2">
+                3 통증 때문에 100 m 이상 걷지 못한다.
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="Q4" id="exampleRadios2" value="4"
+                   onclick='getScore4(event)'>
+            <label class="form-check-label" for="exampleRadios2">
+                4 지팡이나 목발이 있어야만 걷는다.
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="Q4" id="exampleRadios2" value="5"
+                   onclick='getScore4(event)'>
+            <label class="form-check-label" for="exampleRadios2">
+                5 대부분 자리에 누워 있으며, 화장실도 기어가야 한다.
+            </label>
+        </div>
+        <br>
+
+
+        <div class="form-check">
+            <label for="exampleFormControlSelect2"> 제 5항 앉기</label><br>
+            <input class="form-check-input" type="radio" name="Q5" id="exampleRadios1" value="0"
+                   onclick='getScore5(event)'>
+            checked>
+            <label class="form-check-label" for="exampleRadios1">
+                0 나는 어떤 의자에서든지 오래 앉아 있을 수 있다.
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="Q5" id="exampleRadios2" value="1"
+                   onclick='getScore5(event)'>
+            <label class="form-check-label" for="exampleRadios2">
+                1 편한 의자라면 오래 앉아 있을 수 있다.
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="Q5" id="exampleRadios2" value="2"
+                   onclick='getScore5(event)'>
+            <label class="form-check-label" for="exampleRadios2">
+                2 통증 때문에 1시간 이상 앉아 있을수 없다
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="Q5" id="exampleRadios2" value="3"
+                   onclick='getScore5(event)'>
+            <label class="form-check-label" for="exampleRadios2">
+                3 통증 때문에 30분이상 앉아 있을수 없다.
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="Q5" id="exampleRadios2" value="4"
+                   onclick='getScore5(event)'>
+            <label class="form-check-label" for="exampleRadios2">
+                4
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="Q5" id="exampleRadios2" value="5"
+                   onclick='getScore5(event)'>
+            <label class="form-check-label" for="exampleRadios2">
+                5
+            </label>
+        </div>
+
+
+    </div>
+
+
+    <div class="right">
+
+        <div class="form-check">
+            <label for="exampleFormControlSelect2">제 6항 서있기 </label><br>
+            <input class="form-check-input" type="radio" name="Q6" id="exampleRadios1" value="0"
+                   onclick='getScore6(event)'>
+            checked>
+            <label class="form-check-label" for="exampleRadios1">
+                0 나는 통증이 없이 얼마든지 서 있을 수 있다.
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="Q6" id="exampleRadios2" value="1"
+                   onclick='getScore6(event)'>
+            <label class="form-check-label" for="exampleRadios2">
+                1 오래 서 있을 수 있으나 약간 통증이 있다.
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="Q6" id="exampleRadios2" value="2"
+                   onclick='getScore6(event)'>
+            <label class="form-check-label" for="exampleRadios2">
+                2 통증 때문에 1시간 이상 서 있을수 없다.
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="Q6" id="exampleRadios2" value="3"
+                   onclick='getScore6(event)'>
+            <label class="form-check-label" for="exampleRadios2">
+                3 통증 때문에 30분이상 서 있을 수 없다.
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="Q6" id="exampleRadios2" value="4"
+                   onclick='getScore6(event)'>
+            <label class="form-check-label" for="exampleRadios2">
+                4 통증 때문에 10분이상 서 있을 수 없다.
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="Q6" id="exampleRadios2" value="5"
+                   onclick='getScore6(event)'>
+            <label class="form-check-label" for="exampleRadios2">
+                5 통증 때문에 전혀 서 있을 수 없다.
+            </label>
+        </div>
+        <br>
+
+
+        <div class="form-check">
+            <label for="exampleFormControlSelect2"> 제 7항 잠자기 </label><br>
+            <input class="form-check-input" type="radio" name="Q7" id="exampleRadios1" value="0"
+                   onclick='getScore7(event)'>
+            checked>
+            <label class="form-check-label" for="exampleRadios1">
+                0 나는 통증 없이 잘 잔다.
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="Q7" id="exampleRadios2" value="1"
+                   onclick='getScore7(event)'>
+            <label class="form-check-label" for="exampleRadios2">
+                1 통증 때문에 가끔 잠자는 데 방해를 받는다.
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="Q7" id="exampleRadios2" value="2"
+                   onclick='getScore7(event)'>
+            <label class="form-check-label" for="exampleRadios2">
+                2 통증 때문에 6시간 이상 잠을 자지 못한다.
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="Q7" id="exampleRadios2" value="3"
+                   onclick='getScore7(event)'>
+            <label class="form-check-label" for="exampleRadios2">
+                3 통증 때문에 4시간 이상 잠을 자지 못한다.
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="Q7" id="exampleRadios2" value="4"
+                   onclick='getScore7(event)'>
+            <label class="form-check-label" for="exampleRadios2">
+                4 통증 때문에 2시간 이상 잠을 자지 못한다.
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="Q7" id="exampleRadios2" value="5"
+                   onclick='getScore7(event)'>
+            <label class="form-check-label" for="exampleRadios2">
+                5 통증 때문에 전혀 잠을 자지 못한다.
+            </label>
+        </div>
+        <br>
+
+
+        <div class="form-check">
+            <label for="exampleFormControlSelect2"> 제 8항 성생활(해당시) </label><br>
+            <input class="form-check-input" type="radio" name="Q8" id="exampleRadios1" value="0"
+                   onclick='getScore8(event)'>
+            checked>
+            <label class="form-check-label" for="exampleRadios1">
+                0 나는 정상적으로 성생활을 하고 통증이 없다.
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="Q8" id="exampleRadios2" value="1"
+                   onclick='getScore8(event)'>
+            <label class="form-check-label" for="exampleRadios2">
+                1 정상적으로 성생활을 하나 가끔 통증을 느낀다.
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="Q8" id="exampleRadios2" value="2"
+                   onclick='getScore8(event)'>
+            <label class="form-check-label" for="exampleRadios2">
+                2 거의 정상적으로 성생활을 하나 통증을 심하게 느낀다.
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="Q8" id="exampleRadios2" value="3"
+                   onclick='getScore8(event)'>
+            <label class="form-check-label" for="exampleRadios2">
+                3 통증 때문에 성생활이 매우 제한적이다.
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="Q8" id="exampleRadios2" value="4"
+                   onclick='getScore8(event)'>
+            <label class="form-check-label" for="exampleRadios2">
+                4 통증 때문에 성생활을 거의 할 수 없다.
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="Q8" id="exampleRadios2" value="5"
+                   onclick='getScore8(event)'>
+            <label class="form-check-label" for="exampleRadios2">
+                5 통증 때문에 성관계를 전혀 갖지 않는다.
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="Q8" id="exampleRadios2" value="0"
+                   onclick='getScore8(event)'>
+            <label class="form-check-label" for="exampleRadios2">
+                6 해당없음.
+            </label>
+        </div>
+        <br>
+
+
+        <div class="form-check">
+            <label for="exampleFormControlSelect2"> 제 9항 사회생활 </label><br>
+
+            <input class="form-check-input" type="radio" name="Q9" id="exampleRadios1" value="0"
+                   onclick='getScore9(event)'>
+            checked>
+            <label class="form-check-label" for="exampleRadios1">
+                0 나는 밖에서 사람들과 어울리는데 지장이 없다.
+            </label>
+        </div>
+
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="Q9" id="exampleRadios2" value="1"
+                   onclick='getScore9(event)'>
+            <label class="form-check-label" for="exampleRadios2">
+                1 밖에서 사람들과 어울리는 데 지장은 없으나, 그로 인해 통증이 심해진다.
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="Q9" id="exampleRadios2" value="2"
+                   onclick='getScore9(event)'>
+            <label class="form-check-label" for="exampleRadios2">
+                2 밖에서 사람들과 어울리는 데 지장은 없으나, 통증 때문에 운동하는데 지장이 있다.(예: 스포츠등)
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="Q9" id="exampleRadios2" value="3"
+                   onclick='getScore9(event)'>
+            <label class="form-check-label" for="exampleRadios2">
+                3 통증때문에 밖에서 사람들과 어울리는 데 지장이 있으며, 자주 외출 하지 못한다.
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="Q9" id="exampleRadios2" value="4"
+                   onclick='getScore9(event)'>
+            <label class="form-check-label" for="exampleRadios2">
+                4 통증 때문에 집에서만 사람들과 어울린다.
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="Q9" id="exampleRadios2" value="5"
+                   onclick='getScore9(event)'>
+            <label class="form-check-label" for="exampleRadios2">
+                5통증 때문에 사람들과 전혀 어울리지 못한다.
+            </label>
+        </div>
+        <br>
+
+
+        <div class="form-check">
+            <label for="exampleFormControlSelect2"> 제 10항 여행 </label><br>
+            <input class="form-check-input" type="radio" name="Q10" id="exampleRadios1" value="0"
+                   onclick='getScore10(event)'>
+            checked>
+            <label class="form-check-label" for="exampleRadios1">
+                0 나는 통증 없이 어디든 여행할 수 있다.
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="Q10" id="exampleRadios2" value="1"
+                   onclick='getScore10(event)'>
+            <label class="form-check-label" for="exampleRadios2">
+                1
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="Q10" id="exampleRadios2" value="2"
+                   onclick='getScore10(event)'>
+            <label class="form-check-label" for="exampleRadios2">
+                2 통증은 있으나, 2시간 이상 차를 탈 수 있다.
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="Q10" id="exampleRadios2" value="3"
+                   onclick='getScore10(event)'>
+            <label class="form-check-label" for="exampleRadios2">
+                3 통증 때문에 1시간 이상 차를 탈 수 없다.
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="Q10" id="exampleRadios2" value="4"
+                   onclick='getScore10(event)'>
+            <label class="form-check-label" for="exampleRadios2">
+                4 통증 때문에 30분 이상 차를 탈 수 없다.
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="Q10" id="exampleRadios2" value="5"
+                   onclick='getScore10(event)'>
+            <label class="form-check-label" for="exampleRadios2">
+                5
+            </label>
+        </div>
+
+    </div>
+</div>
+
+<h1 class="end"> 수고 하셨습니다. </h1>
+</body>
+
+</html>

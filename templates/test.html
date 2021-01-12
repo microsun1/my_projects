@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script>
+        function getGender(event) {
+            document.getElementById('result').innerText =
+                event.target.value;
+        }
+    </script>
+</head>
+
+    <title></title>
+</head>
+<body>
+
+<input type='radio'
+       name='gender'
+       value='female'
+       onclick='getGender(event)'/>여성
+<input type='radio'
+       name='gender'
+       value='male'
+       onclick='getGender(event)'/>남성
+<div id='result'></div>
+
+
+</body>
+</html>
+

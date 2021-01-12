@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script>
+        function getScore(event) {
+            document.getElementById('result').innerText =
+                event.target.value;
+        }
+    </script>
+</head>
+
+    <title></title>
+</head>
+<body>
+
+<input type='radio'
+       name='gender'
+       value='1'
+       onclick='getScore(event)'/>1
+<input type='radio'
+       name='gender'
+       value='2'
+       onclick='getScore(event)'/>2
+<div id='result'></div>
+
+
+</body>
+</html>
+
+
+
+
+
+
+
