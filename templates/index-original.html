@@ -158,56 +158,17 @@
             })
         }
 
-
         function makeCard(chno, name, sex, age, ret1, ret2, ret3, ret4, ret5, ret6, ret7, ret8, ret9, ret10, ret_total) {
-            // let tempHtml = `<div class="card">
-            //             <div>
-            //
-            //             <p>${chno},${name},${age},${ret1},${ret2},${ret3},${ret4},${ret5},${ret6},${ret7},${ret8},${ret9},${ret_total}</p>
-            //             </div>
-            //
-            //             </div>`;
-            // $("#cards-box").append(tempHtml);
+            let tempHtml = `\`<div class="card">
+                        <div class="card-body">
 
+                        <p>${chno},${name},${age},${ret1},${ret2},${ret3},${ret4},${ret5},${ret6},${ret7},${ret8},${ret9},${ret_total}</p>
+                        </div>
 
-            // let tempHtml = ` <p>${chno},${name},${age},${ret1},${ret2},${ret3},${ret4},${ret5},${ret6},${ret7},${ret8},${ret9},${ret_total}</p>`
-
-            let tempHtml = `<tr>
-                <th scope="row">1</th>
-                <td>${chno}</td>
-                <td>${name}</td>
-                <td>${sex}</td>
-                <td>${age}</td>
-                <td>${ret1}</td>
-                <td>${ret2}</td>
-                <td>${ret3}</td>
-                <td>${ret4}</td>
-                <td>${ret5}</td>
-                <td>${ret6}</td>
-                <td>${ret7}</td>
-                <td>${ret8}</td>
-                <td>${ret9}</td>
-                <td>${ret10}</td>
-                <td>${ret_total}</td>
-            </tr>`
-
-
-            $('#sun-show2').append(tempHtml);
+                        </div>`;
+            $("#cards-box").append(tempHtml);
 
         }
-
-        //
-        // function makeCard(chno, name, sex, age, ret1, ret2, ret3, ret4, ret5, ret6, ret7, ret8, ret9, ret10, ret_total) {
-        //     let tempHtml = `\`<div class="card">
-        //             <div class="card-body">
-        //
-        //             <p>${chno},${name},${age},${ret1},${ret2},${ret3},${ret4},${ret5},${ret6},${ret7},${ret8},${ret9},${ret_total}</p>
-        //             </div>
-        //
-        //             </div>`;
-        //     $("#cards-box").append(tempHtml);
-        //
-        // }
 
     </script>
 
@@ -237,6 +198,12 @@
         날짜 : <input type="text" name="my_name" size="20">
         술전, 술후 체크 : <input type="text" name="my_name" size="20">
 
+        <div id="cards-box" class="card-columns">
+            <div class="card">
+
+            </div>
+
+        </div>
 
         <!--    <div class="input-group mb-3">-->
         <!--        <div class="input-group-prepend">-->
@@ -277,17 +244,6 @@
         <!--                <input type="submit" value="Submit"></p>-->
         <!--        </form>-->
         <!--    </div>-->
-        <!--        <ul id="sun-show">-->
-        <!--        </ul>-->
-
-
-        <!--        <div id="cards-box" class="card-columns">-->
-        <!--            <div class="card">-->
-
-        <!--            </div>-->
-
-        <!--        </div>-->
-
     </div>
 
     <div class="question">
@@ -403,155 +359,122 @@
 
         </div>
 
-        <div>
 
-            <div class="right">
+        <div class="right">
 
-                <ul> 제 6 항 서있기
-                    <li>
-                        <input type="radio" name="radioTxt6" value=0 checked> 0 나는 통증이 없이 얼마든지 서 있을 수 있다.
-                    </li>
-                    <li>
-                        <input type="radio" name="radioTxt6" value=1> 1 오래 서 있을 수 있으나 약간 통증이 있다.
-                    </li>
-                    <li>
-                        <input type="radio" name="radioTxt6" value=2> 2 통증 때문에 1시간 이상 서 있을수 없다.
-                    </li>
-                    <li>
-                        <input type="radio" name="radioTxt6" value=3> 3 통증 때문에 30분이상 서 있을 수 없다.
-                    </li>
-                    <li>
-                        <input type="radio" name="radioTxt6" value=4> 4 통증 때문에 10분이상 서 있을 수 없다.
-                    </li>
-                    <li>
-                        <input type="radio" name="radioTxt6" value=5> 5 통증 때문에 전혀 서 있을 수 없다.
-                    </li>
-                </ul>
+            <ul> 제 6 항 서있기
+                <li>
+                    <input type="radio" name="radioTxt6" value=0 checked> 0 나는 통증이 없이 얼마든지 서 있을 수 있다.
+                </li>
+                <li>
+                    <input type="radio" name="radioTxt6" value=1> 1 오래 서 있을 수 있으나 약간 통증이 있다.
+                </li>
+                <li>
+                    <input type="radio" name="radioTxt6" value=2> 2 통증 때문에 1시간 이상 서 있을수 없다.
+                </li>
+                <li>
+                    <input type="radio" name="radioTxt6" value=3> 3 통증 때문에 30분이상 서 있을 수 없다.
+                </li>
+                <li>
+                    <input type="radio" name="radioTxt6" value=4> 4 통증 때문에 10분이상 서 있을 수 없다.
+                </li>
+                <li>
+                    <input type="radio" name="radioTxt6" value=5> 5 통증 때문에 전혀 서 있을 수 없다.
+                </li>
+            </ul>
 
 
-                <ul> 제 7 항 잠자기
-                    <li>
-                        <input type="radio" name="radioTxt7" value=0 checked> 0 나는 통증 없이 잘 잔다.
-                    </li>
-                    <li>
-                        <input type="radio" name="radioTxt7" value=1> 1 통증 때문에 가끔 잠자는 데 방해를 받는다.
-                    </li>
-                    <li>
-                        <input type="radio" name="radioTxt7" value=2> 2 통증 때문에 6시간 이상 잠을 자지 못한다.
-                    </li>
-                    <li>
-                        <input type="radio" name="radioTxt7" value=3> 3 통증 때문에 4시간 이상 잠을 자지 못한다.
-                    </li>
-                    <li>
-                        <input type="radio" name="radioTxt7" value=4> 4 통증 때문에 2시간 이상 잠을 자지 못한다.
-                    </li>
-                    <li>
-                        <input type="radio" name="radioTxt7" value=5> 5 통증 때문에 전혀 잠을 자지 못한다.
-                    </li>
-                </ul>
+            <ul> 제 7 항 잠자기
+                <li>
+                    <input type="radio" name="radioTxt7" value=0 checked> 0 나는 통증 없이 잘 잔다.
+                </li>
+                <li>
+                    <input type="radio" name="radioTxt7" value=1> 1 통증 때문에 가끔 잠자는 데 방해를 받는다.
+                </li>
+                <li>
+                    <input type="radio" name="radioTxt7" value=2> 2 통증 때문에 6시간 이상 잠을 자지 못한다.
+                </li>
+                <li>
+                    <input type="radio" name="radioTxt7" value=3> 3 통증 때문에 4시간 이상 잠을 자지 못한다.
+                </li>
+                <li>
+                    <input type="radio" name="radioTxt7" value=4> 4 통증 때문에 2시간 이상 잠을 자지 못한다.
+                </li>
+                <li>
+                    <input type="radio" name="radioTxt8" value=5> 5 통증 때문에 전혀 잠을 자지 못한다.
+                </li>
+            </ul>
 
-                <ul> 제 8 항 성생활(해당시)
-                    <li>
-                        <input type="radio" name="radioTxt8" value=0 checked> 0 나는 정상적으로 성생활을 하고 통증이 없다.
-                    </li>
-                    <li>
-                        <input type="radio" name="radioTxt8" value=1> 1 정상적으로 성생활을 하나 가끔 통증을 느낀다.
-                    </li>
-                    <li>
-                        <input type="radio" name="radioTxt8" value=2> 2 거의 정상적으로 성생활을 하나 통증을 심하게 느낀다.
-                    </li>
-                    <li>
-                        <input type="radio" name="radioTxt8" value=3> 3 통증 때문에 성생활이 매우 제한적이다.
-                    </li>
-                    <li>
-                        <input type="radio" name="radioTxt8" value=4> 4 통증 때문에 성생활을 거의 할 수 없다
-                    </li>
-                    <li>
-                        <input type="radio" name="radioTxt8" value=5> 5 통증 때문에 성관계를 전혀 갖지 않는다.
-                    </li>
-                    <li>
-                        <input type="radio" name="radioTxt8" value=2.5> 6 해당사항 없다.
-                    </li>
+            <ul> 제 8 항 성생활(해당시)
+                <li>
+                    <input type="radio" name="radioTxt8" value=0 checked> 0 나는 정상적으로 성생활을 하고 통증이 없다.
+                </li>
+                <li>
+                    <input type="radio" name="radioTxt8" value=1> 1 정상적으로 성생활을 하나 가끔 통증을 느낀다.
+                </li>
+                <li>
+                    <input type="radio" name="radioTxt8" value=2> 2 거의 정상적으로 성생활을 하나 통증을 심하게 느낀다.
+                </li>
+                <li>
+                    <input type="radio" name="radioTxt8" value=3> 3 통증 때문에 성생활이 매우 제한적이다.
+                </li>
+                <li>
+                    <input type="radio" name="radioTxt8" value=4> 4 통증 때문에 성생활을 거의 할 수 없다
+                </li>
+                <li>
+                    <input type="radio" name="radioTxt8" value=5> 5 통증 때문에 성관계를 전혀 갖지 않는다.
+                </li>
+                <li>
+                    <input type="radio" name="radioTxt8" value=2.5> 6 해당사항 없다.
+                </li>
 
-                </ul>
+            </ul>
 
-                <ul> 제 9 항 사회생활
-                    <li>
-                        <input type="radio" name="radioTxt9" value=0 checked> 0 나는 밖에서 사람들과 어울리는데 지장이 없다.
-                    </li>
-                    <li>
-                        <input type="radio" name="radioTxt9" value=1> 1 밖에서 사람들과 어울리는 데 지장은 없으나, 그로 인해 통증이 심해진다.
-                    </li>
-                    <li>
-                        <input type="radio" name="radioTxt9" value=2> 2 밖에서 사람들과 어울리는 데 지장은 없으나, 통증 때문에 운동하는데 지장이 있다.(예:
-                        스포츠등)
-                    </li>
-                    <li>
-                        <input type="radio" name="radioTxt9" value=3> 3 통증때문에 밖에서 사람들과 어울리는 데 지장이 있으며, 자주 외출 하지 못한다.
-                    </li>
-                    <li>
-                        <input type="radio" name="radioTxt9" value=4> 4 통증 때문에 집에서만 사람들과 어울린다.
-                    </li>
-                    <li>
-                        <input type="radio" name="radioTxt9" value=5> 5통증 때문에 사람들과 전혀 어울리지 못한다.
-                    </li>
-                </ul>
+            <ul> 제 9 항 사회생활
+                <li>
+                    <input type="radio" name="radioTxt9" value=0 checked> 0 나는 밖에서 사람들과 어울리는데 지장이 없다.
+                </li>
+                <li>
+                    <input type="radio" name="radioTxt9" value=1> 1 밖에서 사람들과 어울리는 데 지장은 없으나, 그로 인해 통증이 심해진다.
+                </li>
+                <li>
+                    <input type="radio" name="radioTxt9" value=2> 2 밖에서 사람들과 어울리는 데 지장은 없으나, 통증 때문에 운동하는데 지장이 있다.(예:
+                    스포츠등)
+                </li>
+                <li>
+                    <input type="radio" name="radioTxt9" value=3> 3 통증때문에 밖에서 사람들과 어울리는 데 지장이 있으며, 자주 외출 하지 못한다.
+                </li>
+                <li>
+                    <input type="radio" name="radioTxt9" value=4> 4 통증 때문에 집에서만 사람들과 어울린다.
+                </li>
+                <li>
+                    <input type="radio" name="radioTxt9" value=5> 5통증 때문에 사람들과 전혀 어울리지 못한다.
+                </li>
+            </ul>
 
-                <ul> 제 10 항 여행
-                    <li>
-                        <input type="radio" name="radioTxt10" value=0 checked> 0 나는 통증 없이 어디든 여행할 수 있다.
-                    </li>
-                    <li>
-                        <input type="radio" name="radioTxt10" value=1> 1 어디든 여행 할 수 있으나, 약간 통증이 있다.
-                    </li>
-                    <li>
-                        <input type="radio" name="radioTxt10" value=2> 2 통증은 있으나, 2시간 이상 차를 탈 수 있다.
-                    </li>
-                    <li>
-                        <input type="radio" name="radioTxt10" value=3> 3 통증 때문에 1시간 이상 차를 탈 수 없다
-                    </li>
-                    <li>
-                        <input type="radio" name="radioTxt10" value=4> 4 통증 때문에 30분 이상 차를 탈 수 없다.
-                    </li>
-                    <li>
-                        <input type="radio" name="radioTxt10" value=5> 5 통증 때문에 치료를 받으로 가는 일 외에는 차를 탈 수가 없다.
-                    </li>
-                </ul>
-            </div>
+            <ul> 제 10 항 여행
+                <li>
+                    <input type="radio" name="radioTxt10" value=0 checked> 0 나는 통증 없이 어디든 여행할 수 있다.
+                </li>
+                <li>
+                    <input type="radio" name="radioTxt10" value=1> 1 어디든 여행 할 수 있으나, 약간 통증이 있다.
+                </li>
+                <li>
+                    <input type="radio" name="radioTxt10" value=2> 2 통증은 있으나, 2시간 이상 차를 탈 수 있다.
+                </li>
+                <li>
+                    <input type="radio" name="radioTxt10" value=3> 3 통증 때문에 1시간 이상 차를 탈 수 없다
+                </li>
+                <li>
+                    <input type="radio" name="radioTxt10" value=4> 4 통증 때문에 30분 이상 차를 탈 수 없다.
+                </li>
+                <li>
+                    <input type="radio" name="radioTxt2" value=5> 5 통증 때문에 치료를 받으로 가는 일 외에는 차를 탈 수가 없다.
+                </li>
+            </ul>
         </div>
 
-
-
-        <table class="table table-dark" id="sun-show2">
-            <thead>
-
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Chart No.</th>
-                <th scope="col">Name</th>
-                <th scope="col">Sex</th>
-                <th scope="col">Age</th>
-                <th scope="col">1항</th>
-                <th scope="col">2항</th>
-                <th scope="col">3항</th>
-                <th scope="col">4항</th>
-                <th scope="col">5항</th>
-                <th scope="col">6항</th>
-                <th scope="col">7항</th>
-                <th scope="col">8항</th>
-                <th scope="col">9항</th>
-                <th scope="col">10항</th>
-                <th scope="col">총합</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-            </tr>
-            </tbody>
-        </table>
-<h1> 선정형외과 현재 척추 환자 척추 점수 </h1>
         <!--<h1 class="end"> 수고 하셨습니다. </h1>-->
         </body>
-
 
 </html>

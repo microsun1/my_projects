@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+
+    <style>
+
+        /*.score {*/
+        /*    float: right;*/
+        /*    margin-bottom: 30px;*/
+        /*    margin-right: 600px;*/
+        /*}*/
+
+        .sun {
+            background: orange;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        /*.spine {*/
+        /*    margin: 30px auto 100px 200px;*/
+        /*    width: 600px;*/
+        /*}*/
+
+        /*.calendar{*/
+        /*    margin:10px  30px auto 500px;*/
+        /*}*/
+
+        .question {
+            margin: 50px auto 100px 30px;
+        }
+
+        .left {
+            float: left;
+            width: 800px;
+            alignment: left;
+            margin-left: 50px;
+        }
+
+        .right {
+            float: right;
+            width: 800px;
+            alignment: right;
+            margin-right: 50px;
+        }
+
+        /*.end {*/
+
+        /*    margin: 1200px auto 100px 0px;*/
+        /*    text-align: center;*/
+        /*}*/
+        /*.h1 {*/
+        /*    text-align: center;*/
+        /*}*/
+        .in {
+            margin: 30px auto 30px 40px;
+            text-decoration-style: solid;
+        }
+
+
+    </style>
+
+    <style>
+        * {
+            font-size: 16px;
+            font-family: Consolas, sans-serif;
+        }
+    </style>
+
+
+    <script>
+        $(document).ready(function () {
+            $("#cards-box").html("");
+            showArticles();
+        });
+
+
+        function order() {
+            let chat_no = $('#chat_no').val();
+            let name = $('#name').val();
+            let sex = $('#sex').val();
+            let age = $('#age').val();
+
+            var radioVal1 = $('input[name="radioTxt1"]:checked').val();
+            var radioVal2 = $('input[name="radioTxt2"]:checked').val();
+            var radioVal3 = $('input[name="radioTxt3"]:checked').val();
+            var radioVal4 = $('input[name="radioTxt4"]:checked').val();
+            var radioVal5 = $('input[name="radioTxt5"]:checked').val();
+            var radioVal6 = $('input[name="radioTxt6"]:checked').val();
+            var radioVal7 = $('input[name="radioTxt7"]:checked').val();
+            var radioVal8 = $('input[name="radioTxt8"]:checked').val();
+            var radioVal9 = $('input[name="radioTxt9"]:checked').val();
+            var radioVal10 = $('input[name="radioTxt10"]:checked').val();
+            let ret_total = Number(radioVal1) + Number(radioVal2) + Number(radioVal3) + Number(radioVal4) + Number(radioVal5) + Number(radioVal6) + Number(radioVal7) + Number(radioVal8) + Number(radioVal9) + Number(radioVal10)
+
+
+            $.ajax({
+                type: "POST",
+                url: "/score",
+                data: {
+                    chno_give: chat_no,
+                    name_give: name,
+                    sex_give: sex,
+                    age_give: age,
+                    re1_give: radioVal1,
+                    re2_give: radioVal2,
+                    re3_give: radioVal3,
+                    re4_give: radioVal4,
+                    re5_give: radioVal5,
+                    re6_give: radioVal6,
+                    re7_give: radioVal7,
+                    re8_give: radioVal8,
+                    re9_give: radioVal9,
+                    re10_give: radioVal10,
+                    ret_total_give: ret_total
+                },
+
+                success: function (response) {
+                    if (response["result"] == "success") {
+                        alert(response["msg"]);
+                        window.location.reload();
+                    }
+                }
+            })
+
+
+        }
+
+        function showArticles() {
+            $.ajax({
+                type: "GET",
+                url: "/score",
+                data: {},
+                success: function (response) {
+                    let articles = response["articles"];
+                    console.log(articles);
+                    for (let i = 0; i < articles.length; i++) {
+                        makeCard(articles[i]["chno"], articles[i]["name"], articles[i]["sex"], articles[i]["age"], articles[i]["re1"], articles[i]["re2"], articles[i]["re3"], articles[i]["re4"], articles[i]["re5"], articles[i]["re6"], articles[i]["re7"], articles[i]["re8"], articles[i]["re9"], articles[i]["re10"], articles[i]["ret_total"]);
+                    }
+                }
+            })
+        }
+
+        function makeCard(chno, name, sex, age, ret1, ret2, ret3, ret4, ret5, ret6, ret7, ret8, ret9, ret10, ret_total) {
+            let tempHtml = `<div class="card">
+                        <div class="card-body">
+
+                        <p class="card-text">${chno},${name},${age},${ret1},${ret2},${ret3},${ret4},${ret5},${ret6},${ret7},${ret8},${ret9},${ret_total}</p>
+
+                        </div>
+                        </div>`;
+            $("#cards-box").append(tempHtml);
+
+        }
+
+    </script>
+
+
+    <title> 선정형외과 척추 기능 평가 측정</title>
+</head>
+
+
+<!--<body>-->
+
+
+<!--<div class="score">-->
+<!--    <h1> 날짜별 총점 <span class="badge badge-secondary">New</span></h1>-->
+<!--    <p>2020년 3월 2일 측정 총점</p>-->
+<!--    <p>2020년 4월 2일 측정 총점</p>-->
+<!--    <p>2020년 5월 2일 측정 총점</p>-->
+<!--    <p>2020년 6월 2일 측정 총점</p>-->
+<!--</div>-->
+
+<div class="spine">
+    <h1 class="sun"> 선정형외과 척추 기능평가 측정</h1>
+    <div class="in">
+        Chart number : <input type="text" name="my_name" id="chat_no" size="20">
+        이름: <input type="text" name="my_name" id="name" size="20">
+        성별: <input type="text" name="my_name" id="sex" size="20">
+        나이: <input type="text" name="my_name" id="age" size="20">
+        날짜 : <input type="text" name="my_name" size="20">
+        술전, 술후 체크 : <input type="text" name="my_name" size="20">
+
+
+        <div id="cards-box" class="card-columns">
+            <div class="card">
+
+            </div>
+        </div>
