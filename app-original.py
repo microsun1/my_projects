@@ -13,26 +13,13 @@ db = client.dbsparta
 def home():
     return render_template('index.html')
 
-@app.route('/result')
-def result_page():
-    return render_template('result.html')
-
-@app.route('/person')
-def person_page():
-    return render_template('person.html')
-
-
-
 
 @app.route('/score', methods=['POST'])
 def write_score():
-    date_receive=request.form['date_give']
     chno_receive = request.form['chno_give']
     name_receive = request.form['name_give']
     sex_receive = request.form['sex_give']
     age_receive = request.form['age_give']
-    period_receive = request.form['period_give']
-    day_receive=request.form['day_give']
     re1_receive = request.form['re1_give']
     re2_receive = request.form['re2_give']
     re3_receive = request.form['re3_give']
@@ -47,13 +34,10 @@ def write_score():
 
     # DB에 삽입할 review 만들기
     score = {
-        'date':date_receive,
         'chno': chno_receive,
         'name': name_receive,
         'sex': sex_receive,
         'age': age_receive,
-        'period': period_receive,
-        'day': day_receive,
         're1': re1_receive,
         're2': re2_receive,
         're3': re3_receive,
@@ -73,47 +57,13 @@ def write_score():
     return jsonify({'result': 'success', 'msg': '리뷰가 성공적으로 작성되었습니다.'})
 
 
-@app.route('/p_read', methods=['GET'])
+@app.route('/score', methods=['GET'])
 def read_articles():
-    chno_receive = request.args.get('chno_give')
-
-    # chno=db.scores.find_one({'chno':chno_receive})
-
     # 1. mongoDB에서 _id 값을 제외한 모든 데이터 조회해오기 (Read)
-    result=list(db.scores.find({"chno": chno_receive}, {'_id': 0}))
-    print(result)
-    # result = list(db.scores.find({'chno':chno}, {'_id': 0}))
-    # 2. articles라는 키 값으로 article 정보 보내주기
-    return jsonify({'result': 'success', 'articles': result,'msg':'성공하였습니다.!'})
-
-@app.route('/name_read', methods=['GET'])
-def read_name():
-    name_receive = request.args.get('name_give')
-
-    # chno=db.scores.find_one({'chno':chno_receive})
-
-    # 1. mongoDB에서 _id 값을 제외한 모든 데이터 조회해오기 (Read)
-    result=list(db.scores.find({"name": name_receive}, {'_id': 0}))
-    print(result)
-    # result = list(db.scores.find({'chno':chno}, {'_id': 0}))
-    # 2. articles라는 키 값으로 article 정보 보내주기
-    return jsonify({'result': 'success', 'articles': result,'msg':'성공하였습니다.!'})
-
-@app.route('/test', methods=['GET'])
-def test_get():
-    title_receive = request.args.get('title_give')
-    print(title_receive)
-    return jsonify({'result': 'success', 'msg': '이 요청은 GET!'})
-
-
-
-@app.route('/all_read', methods=['GET'])
-def readall_articles():
-    # 1. mongoDB에서 _id 값을 제외한 모든 데이터 조회해오기 (Read)
-    result = list(db.scores.find({}, {'_id': 0}).sort('_id', -1))
-    # stars = list(db.mystar.find({}, {'_id': False}).sort('like', -1))
+    result = list(db.scores.find({}, {'_id': 0}))
     # 2. articles라는 키 값으로 article 정보 보내주기
     return jsonify({'result': 'success', 'articles': result})
+
 #
 # @app.route('/api/list', methods=['GET'])
 # def show_stars():
@@ -169,17 +119,15 @@ def readall_articles():
 # API 역할을 하는 부분
 
 
-@app.route('/delete', methods=['POST'])
+
+@app.route('/api/delete', methods=['POST'])
 def delete_star():
     # 1. 클라이언트가 전달한 name_give를 name_receive 변수에 넣습니다.
     chno_receive = request.form['chno_give']
-    name_receive=request.form['name_give']
-    period_receive = request.form['period_give']
     # 2. mystar 목록에서 delete_one으로 name이 name_receive와 일치하는 star를 제거합니다.
-    db.scores.delete_one({'chno': chno_receive, 'period':period_receive,'name':name_receive})
-
+    db.scores.delete_one({'chno': chno_receive})
     # 3. 성공하면 success 메시지를 반환합니다.
-    return jsonify({'result':'success', 'msg': '삭제 성공 하였습니다.'})
+    return jsonify({'result': 'success'})
 
 
 if __name__ == '__main__':

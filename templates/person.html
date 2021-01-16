@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+    <style>body {
+        background-image: url('https://sciprogress.com/wp-content/uploads/2019/05/spine-anatomy.jpg');
+        background-position: center;
+        background-size: cover;
+
+    }
+
+    .sun {
+        width: 670px;
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
+        color: yellow;
+        background-color: darkred
+    }
+
+    /* 가로 중앙 정렬 */
+    </style>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+
+    <script>
+
+
+        function order() {
+            let chat_no = $('#chat_no').val();
+            // let name = $('#name').val();
+
+
+            $.ajax({
+                type: "GET",
+                url: "/p_read",
+                data: {chno_give: chat_no},
+                // chno_give: chat_no
+                // name_give: name,
+
+
+                success: function (response) {
+                    if (response["result"] == "success") {
+
+                        let articles = response["articles"];
+                        console.log(articles);
+                        for (let i = 0; i < articles.length; i++) {
+                            makeCard(articles[i]["date"], articles[i]["chno"], articles[i]["period"], articles[i]["name"], articles[i]["sex"], articles[i]["age"], articles[i]["re1"], articles[i]["re2"], articles[i]["re3"], articles[i]["re4"], articles[i]["re5"], articles[i]["re6"], articles[i]["re7"], articles[i]["re8"], articles[i]["re9"], articles[i]["re10"], articles[i]["ret_total"]);
+
+                        }
+
+                        // window.location.reload();
+
+                    }
+                },
+                // alert(response["msg"])
+
+
+            })
+            // showArticles()
+            // makeCard()
+
+
+        }
+
+        function order2() {
+            // let chat_no = $('#chat_no').val();
+            let name = $('#name').val();
+
+
+            $.ajax({
+                type: "GET",
+                url: "/name_read",
+                data: {name_give: name},
+                // chno_give: chat_no
+                //
+
+                success: function (response) {
+                    if (response["result"] == "success") {
+
+                        let articles = response["articles"];
+
+                        for (let i = 0; i < articles.length; i++) {
+                            makeCard(articles[i]["date"], articles[i]["chno"], articles[i]["period"], articles[i]["name"], articles[i]["sex"], articles[i]["age"], articles[i]["re1"], articles[i]["re2"], articles[i]["re3"], articles[i]["re4"], articles[i]["re5"], articles[i]["re6"], articles[i]["re7"], articles[i]["re8"], articles[i]["re9"], articles[i]["re10"], articles[i]["ret_total"]);
+
+                        }
+
+                        // window.location.reload();
+
+                    }
+                },
+                // alert(response["msg"])
+
+
+            })
+
+            // makeCard()
+
+
+        }
+
+
+        function makeCard(date, chno, period, name, sex, age, ret1, ret2, ret3, ret4, ret5, ret6, ret7, ret8, ret9, ret10, ret_total) {
+
+            let tempHtml = `<tr>
+                <th scope="row">1</th>
+
+                <td>${date}</td>
+                <td>${chno}</td>
+                <td>${period}</td>
+                <td>${name}</td>
+                <td>${sex}</td>
+                <td>${age}</td>
+                <td>${ret1}</td>
+                <td>${ret2}</td>
+                <td>${ret3}</td>
+                <td>${ret4}</td>
+                <td>${ret5}</td>
+                <td>${ret6}</td>
+                <td>${ret7}</td>
+                <td>${ret8}</td>
+                <td>${ret9}</td>
+                <td>${ret10}</td>
+                <td>${ret_total}</td>
+            </tr>`
+
+
+            $('#sun-show2').append(tempHtml);
+
+        }
+
+
+    </script>
+</head>
+<body>
+<br>
+<br>
+<div class="sun">
+
+    <h1> 선정형외과 개별 환자 척추 기능 점수 </h1></div>
+<br>
+
+
+<div style="border: 1px solid gold; float: left; width: 25%; padding:10px; color: white; margin-left: 20px">
+    Chart number : <input type="text" name="my_name" id="chat_no" size="20">
+    <button onclick="order()" type="button" class="btn btn-primary mybtn">Chart No. 검색하기</button>
+</div>
+<div style="border: 1px solid gold; float: left; width: 25%; padding:10px; color: white; margin-left: 20px">
+    환자 이름 : <input type="text" name="my_name" id="name" size="20">
+    <button onclick="order2()" type="button" class="btn btn-primary mybtn">이름 검색하기</button>
+</div>
+
+
+<a href="{{ url_for('home') }}" style="float:right; margin-right:70px; color:white;"> 입력 홈으로 이동 </a><br>
+<a href="{{ url_for('result_page') }}" style="float:right; margin-right:70px; color:white;"> 전체 척추 환자 결과보기 </a><br><br>
+
+<table class="table table-dark" id="sun-show2">
+    <thead>
+
+    <tr>
+
+        <th scope="col">순번</th>
+        <th scope="col">Date</th>
+        <th scope="col">Chart No.</th>
+        <th scope="col">Name</th>
+        <th scope="period">측정 시점</th>
+        <th scope="col">Sex</th>
+        <th scope="col">Age</th>
+        <th scope="col">1항 통증</th>
+        <th scope="col">2항 개인</th>
+        <th scope="col">3항 물건</th>
+        <th scope="col">4항 걷기</th>
+        <th scope="col">5항 앉기</th>
+        <th scope="col">6항 서있기</th>
+        <th scope="col">7항 잠자기</th>
+        <th scope="col">8항 성생활</th>
+        <th scope="col">9항 사회생활</th>
+        <th scope="col">10항 여행</th>
+        <th scope="col">총합</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    </tr>
+    </tbody>
+    <!--    <table class="table table-dark" id="sun-show3">-->
+    <!--        <thead>-->
+
+    <!--        <tr>-->
+    <!--            <th scope="col">#</th>-->
+    <!--            <th scope="col">Date</th>-->
+    <!--            <th scope="col">Chart No.</th>-->
+    <!--            <th scope="col">측정시점</th>-->
+    <!--            <th scope="col">Name</th>-->
+    <!--            <th scope="col">Sex</th>-->
+    <!--            <th scope="col">Age</th>-->
+    <!--            <th scope="col">1항</th>-->
+    <!--            <th scope="col">2항</th>-->
+    <!--            <th scope="col">3항</th>-->
+    <!--            <th scope="col">4항</th>-->
+    <!--            <th scope="col">5항</th>-->
+    <!--            <th scope="col">6항</th>-->
+    <!--            <th scope="col">7항</th>-->
+    <!--            <th scope="col">8항</th>-->
+    <!--            <th scope="col">9항</th>-->
+    <!--            <th scope="col">10항</th>-->
+    <!--            <th scope="col">총합</th>-->
+    <!--        </tr>-->
+    <!--        </thead>-->
+    <!--        <tbody>-->
+    <!--        <tr>-->
+    <!--        </tr>-->
+    <!--        </tbody>-->
+    <!--    </table>-->
+</body>
