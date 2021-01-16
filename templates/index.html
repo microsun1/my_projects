@@ -178,19 +178,21 @@
 </head>
 <body>
 
-<br>
-<a href="{{ url_for('person_page') }}" style="color:white; float:right; margin-right:70px"> 개별 환자 결과보기 </a><br>
-<a href="{{ url_for('result_page') }}" style="color:white; float:right;margin-right:70px"> 전체 척추환자 결과보기 </a>
-
 
 <div class="spine">
     <div class="title">
         <br>
 
-        <h1 class="sun"> 선정형외과 척추 기능평가 점수 입력 홈</h1></div>
-    <br>
+<a href="{{ url_for('result_page') }}" style="color:white; float:right;margin-right:70px"> 전체 척추환자 결과보기 </a><br>
+<a href="{{ url_for('person_page') }}" style="color:white; float:right; margin-right:70px"> 개별 환자 결과보기 </a>
+
+
+        <h1 class="sun"> 선정형외과 척추 기능평가 점수 입력 홈</h1></div><br>
+
+
+
     <!--    <div class="in">-->
-    <div style="border: 1px solid gold; float: left; width: 20%; padding:10px;">
+    <div style="border: 1px solid gold; float: left; width: 20%; padding:10px; margin-left: 30px">
         Chart number : <br>
         <input type="text" name="my_name" id="chat_no" size="20"></div>
 
@@ -225,7 +227,7 @@
             <option value="M"> 남자</option>
             <option value="F"> 여자</option>
         </select></div>
-    <div style="border: 1px solid gold; float: left; width: 10%; padding:10px; ">
+    <div style="border: 1px solid gold; float: left; width: 12%; padding:10px; ">
 
         나이:<br>
         <input type="text" name="my_name" id="age" size="20"></div>
@@ -302,7 +304,7 @@
                 있다.
             </li>
             <li>
-                <input type="radio" name="radioTxt3" value=4> 4 아주 가벼운 물건말 들 수 있다.
+                <input type="radio" name="radioTxt3" value=4> 4 아주 가벼운 물건만 들 수 있다.
             </li>
             <li>
                 <input type="radio" name="radioTxt3" value=5> 5 아무것도 들거나 나를 수 없다.
